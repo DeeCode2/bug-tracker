@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+//COLORS
+$COLOR1: #344e41;
+$COLOR2: #3a5a40;
+$COLOR3: #588157;
+$COLOR4: #a3b18a;
+$COLOR5: #dad7cd;
+$COLOR6: #fffefa;
+
+nav {
+    background-color: $COLOR1;
+    position: fixed;
+    width: 100%;
+    padding: 1em;
+
+    ul {
+        display: flex;
+        align-items: center;    
+        list-style-type: none;
+
+        a, li {
+            color: $COLOR6;
+            padding: .5em;
+        }
+    }
+    
+}
+
+body {
+    background-color: $COLOR6;
+
+    main {
+        height: 100vh;
+        padding: 5em 1em;
+
+        h1 {
+            margin: .5em 0;
+        }
+
+        .data {
+            //padding: 1em;
+            display: grid;
+            grid-auto-rows: 1fr;
+
+            .item-wrapper {
+                
+                display: grid;
+                grid-template-columns: 1fr;
+                padding: .5em;
+                //background-color: $COLOR1;
+                border: solid .5px $COLOR4;
+
+                @media only screen and (min-width: 800px) {
+                    grid-template-columns: 1fr 1fr 1fr auto;
+                }
+
+                .list-item {
+                    display: flex;
+                    align-items: center;
+                    //justify-content: center;
+                    padding: .3em;
+                    
+                }
+
+                // &:nth-child(2n) {
+                //     background-color: $COLOR2;
+                // }
+
+                &:first-child {
+                    @media only screen and (max-width: 800px) {
+                        display: none;
+                    }
+                }
+            }
+            
+        }
+
+        form {
+            //border: solid red;
+            max-width: 500px;
+            margin: auto;
+
+            .input-group {
+                //border: solid red;
+                display: flex;
+                flex-direction: column;
+                padding: .5em 0;
+                
+                label {
+                    padding: .3em 0;
+                }
+
+                input, select {
+                    padding: 1em
+                }
+            }
+
+            button {
+                padding: 1em;
+                margin-top: 1.5em;
+                cursor: pointer;
+                width: 100%;
+            }
+        }
+    }
+}
