@@ -11,70 +11,21 @@ $COLOR3: #495057;
 $COLOR4: #9099a2;
 $COLOR5: #adb5bd;
 $COLOR6: #f8f9fa;
+$red: #f94144;
+$green: #90be6d;
+$blue: #86bbd8;
 
 @mixin gen-styles {
   border-radius: 0.5em;
   background-color: whitesmoke;
   padding: 0.5em;
   box-shadow: 5px 5px 5px 1px rgba(189, 188, 188, 0.1);
-  //border: solid 1px $COLOR5;
 }
 
 @mixin gen-btn {
   padding: 1em;
   text-decoration: none;
   border-radius: 0.5em;
-}
-
-nav {
-  background-color: $COLOR1;
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  //justify-content: space-between;
-  visibility: hidden;
-  //border: solid red;
-
-  @media only screen and (min-width: 900px) {
-    width: 15vw;
-    visibility: visible;
-  }
-
-  ul {
-    // display: flex;
-    // align-items: center;
-    list-style-type: none;
-
-    a {
-      border-radius: 0.3em;
-      width: 100%;
-      padding: 1em;
-      //margin: 1em 0;
-      text-decoration: none;
-      color: $COLOR6;
-      //text-align: center;
-
-      &:hover {
-        background-color: $COLOR4;
-      }
-    }
-
-    li {
-      width: 100%;
-      //border: solid red;
-      display: flex;
-
-      margin-bottom: 0.5em;
-    }
-  }
-
-  button {
-    margin-top: auto;
-  }
 }
 
 body {
@@ -95,8 +46,18 @@ body {
 
   .warning {
     @include gen-btn;
-    background-color: $COLOR3;
-    color: $COLOR6;
+    background-color: $red;
+    color: $COLOR1;
+  }
+
+  .go {
+    @include gen-btn;
+    background-color: $green;
+    color: $COLOR1;
+  }
+
+  .neutral {
+    background-color: $blue;
   }
 
   .action {
@@ -140,22 +101,20 @@ body {
     }
 
     .tag {
-      border: solid 1px $COLOR4;
       width: max-content;
       padding: .3em .5em;
       border-radius: 2em;
-      //background-color: $COLOR4;
+      background-color: $blue;
     }
 
     #stats {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 1;
       grid-auto-rows: auto;
       gap: 1em;
       margin-bottom: 1em;
       overflow-x: scroll;
       padding-bottom: 1em;
-      
 
       .stat {
         @include gen-styles;
@@ -164,6 +123,10 @@ body {
         @media only screen and (min-width: 900px) {
           width: auto;
           //aspect-ratio: 1/.25;
+        }
+
+        &:last-child {
+          min-width: 300px;
         }
 
         a {
@@ -179,6 +142,7 @@ body {
       @media only screen and (min-width: 900px) {
         overflow: hidden;
         padding-bottom: 0;
+        grid-template-columns: 2fr 1fr;
       }
 
       p {
@@ -209,8 +173,9 @@ body {
         @media only screen and (min-width: 900px) {
           flex-direction: row;
           align-items: center;
+          
           input {
-            width: auto;
+            max-width: 300px;
           }
         }
       }
@@ -258,73 +223,4 @@ body {
       }
     }
   }
-  form {
-    //border: solid red;
-    max-width: 500px;
-    margin: auto;
-    background-color: whitesmoke;
-    padding: 1.5em;
-    border-radius: 0.5em;
-
-    h1 {
-        text-align: center;
-    }
-
-    .input-group {
-      margin: 1.5em 0;
-
-      input,
-      select {
-        border: solid 1px $COLOR5;
-        padding: 1em;
-        border-radius: 0.5em;
-        width: 100%;
-        margin-top: 1em;
-      }
-    }
-
-    button {
-      margin-top: 1.5em;
-      width: 100%;
-    }
-
-    p {
-        text-align: center;
-        margin-top: 1.5em ;
-         a {
-            color: #212529;
-         }
-    }
-
-    @media only screen and (max-width: 900px) {
-        height: 93vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-  }
-
-  // .detail-section {
-  //   // @include gen-styles;
-  //   // padding: 1.5em;
-
-  //   // p {
-  //   //   border-bottom: solid 1px $COLOR5;
-  //   //   padding: 1em 0;
-
-  //   //   span {
-  //   //     font-weight: bold;
-  //   //     color: $COLOR2;
-  //   //   }
-  //   // }
-
-  //   @media only screen and (min-width: 900px) {
-  //     max-width: 50%;
-  //   }
-  // }
 }
-
-.register {
-    margin: 0;
-}
-

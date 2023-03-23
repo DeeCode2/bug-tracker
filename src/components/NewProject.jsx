@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { auth, firestore } from '../config/Firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import '../styles/Form.scss';
 
 const NewProject = () => {
     const [projects, setProjects] = useState([]);
@@ -81,8 +82,8 @@ const NewProject = () => {
                 <div className='input-group'>
                     <label for='status-input'>Project status</label>
                     <select ref={statusRef} id='status-input'>
-                        <option value='active'>Active</option>
-                        <option value='complete'>Complete</option>
+                        <option value='Active'>Active</option>
+                        <option value='Complete'>Complete</option>
                     </select>
                 </div>
 

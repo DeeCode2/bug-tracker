@@ -1,5 +1,6 @@
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { UserAuth } from '../config/AuthContext.jsx';
+import '../styles/Navbar.scss';
 
 const Navbar = () => {
   //get user auth and logout functions from config

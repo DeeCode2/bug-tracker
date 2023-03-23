@@ -1,0 +1,51 @@
+@use "./App.scss";
+
+form {
+  //border: solid red;
+  max-width: 500px;
+  margin: auto;
+  background-color: whitesmoke;
+  padding: 1.5em;
+  border-radius: 0.5em;
+
+  h1 {
+    text-align: center;
+  }
+
+  .input-group {
+    margin: 1.5em 0;
+
+    input,
+    select {
+      border: solid 1px App.$COLOR5;
+      padding: 1em;
+      border-radius: 0.5em;
+      width: 100%;
+      margin-top: 1em;
+    }
+  }
+
+  button {
+    margin-top: 1.5em;
+    width: 100%;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 1.5em;
+    a {
+      color: #212529;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.register {
+    margin: 0;
+}

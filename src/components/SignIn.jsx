@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../config/AuthContext';
 import { auth } from '../config/Firebase.jsx';
 import { doc, setDoc, getFirestore } from 'firebase/firestore';
+import '../styles/Form.scss';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');

@@ -63,8 +63,6 @@ const ProjectDetail = () => {
           <p>{ticket.title}</p>
         </div>
 
-  
-
         <div className='list-item'>
           <p className='tag'>
             {ticket.type}
@@ -89,6 +87,7 @@ const ProjectDetail = () => {
   let reversedTickets = issues;
   let ticketList = [...reversedTickets].reverse();
 
+
   return (
     <main>
       {/* <h1>{currentProject.title}</h1>
@@ -103,17 +102,30 @@ const ProjectDetail = () => {
           <p>{currentProject.description}</p>
 
           <h3>Date created:</h3>
-          <p>21-03-2023</p>
+          <p>{currentProject.date}</p>
 
           <h3>Date updated:</h3>
-          <p>21-03-2023</p>
+          <p>{currentProject.date}</p>
           
           <Link className='primary'>Edit</Link>
         </div>
 
         <div className='stat'>
-          <h3>Total tickets</h3>
-          <p>{currentProject.issues.length}</p>
+          <h3>Tickets</h3>
+          <p>Total: {tickets.length}</p>
+
+          <p>Open tickets: {tickets.filter((ticket) => 
+            ticket.status === "Open"
+          ).length}</p>
+
+          <p>In progress: {tickets.filter((ticket) => 
+            ticket.status === "In progress"
+          ).length}</p>
+
+          <p>Closed: {tickets.filter((ticket) => 
+            ticket.status === "Closed"
+          ).length}</p>
+
         </div>
       </section>
       <div className='new-item'>
