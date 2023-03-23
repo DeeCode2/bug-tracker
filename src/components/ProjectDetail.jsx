@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
-import { auth, firestore } from "../config/Firebase";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import React, { useEffect, useState, useRef } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { auth, firestore } from '../config/Firebase';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const ProjectDetail = () => {
   const [projects, setProjects] = useState([]);
@@ -18,7 +18,7 @@ const ProjectDetail = () => {
         const uid = auth.currentUser.uid;
         setUserId(uid);
 
-        getDoc(doc(firestore, uid, "projects"))
+        getDoc(doc(firestore, uid, 'projects'))
           .then((docSnap) => {
             if (docSnap.exists()) {
               //binary search of books
@@ -44,78 +44,107 @@ const ProjectDetail = () => {
 
               searchProjects(Number(projectId), docSnap.data().projects);
             } else {
-              console.log("No such document!");
+              console.log('No such document!');
             }
           })
           .catch((err) => {
-            console.log("Error getting document: ", err);
+            console.log('Error getting document: ', err);
           });
       } else {
-        console.log("User is not logged in");
+        console.log('User is not logged in');
       }
     });
   }, []);
 
   const issues = tickets.map((ticket) => {
     return (
-        <div className='item-wrapper'>
-            <div className='list-item'>
-                <p>{ticket.title}</p>    
-            </div>
+      <div className='item-wrapper'>
+        <div className='list-item'>
+          <p>{ticket.title}</p>
+        </div>
 
-            <div className='list-item'>
-                <p>{ticket.description}</p>
-            </div>
-            
-            <div className='list-item'>
-                <ul>
-                    <li>{ticket.type}</li>
-                    <li>{ticket.status}</li>
-                </ul>
-            </div>
-            
-            <div className='list-item'>
-                <p>{ticket.date}</p>    
-            </div>
-            
-        </div>  
-    )
-  })
+  
+
+        <div className='list-item'>
+          <p className='tag'>
+            {ticket.type}
+          </p>
+        </div>
+
+        <div className='list-item'>
+          <p className='tag'>
+            {ticket.status}
+          </p>
+        </div>
+
+        <div className='list-item'> 
+          <Link className='action' to={`/dashboard/${projectId}/${ticket.id}`}>Detail</Link>
+          <a className='action' href='#'>Edit</a>
+        </div>
+      </div>
+    );
+  });
+
+  //reverse array to get most recent one first
+  let reversedTickets = issues;
+  let ticketList = [...reversedTickets].reverse();
 
   return (
     <main>
-        <h1>{currentProject.title}</h1>
-        <p>{currentProject.description}</p>
-        <section>
-            <Link to={'newticket'}>add a ticket</Link>
-            <div className="data">
-            <div className='item-wrapper'>
+      {/* <h1>{currentProject.title}</h1>
+      <p>{currentProject.description}</p> */}
+
+      <section id='stats'>
+        <div className='stat'>
+          <h3>Project name:</h3>
+          <p>{currentProject.title}</p>
+
+          <h3>description:</h3>
+          <p>{currentProject.description}</p>
+
+          <h3>Date created:</h3>
+          <p>21-03-2023</p>
+
+          <h3>Date updated:</h3>
+          <p>21-03-2023</p>
+          
+          <Link className='primary'>Edit</Link>
+        </div>
+
+        <div className='stat'>
+          <h3>Total tickets</h3>
+          <p>{currentProject.issues.length}</p>
+        </div>
+      </section>
+      <div className='new-item'>
+        <Link className='primary' to={'newticket'}>add a ticket</Link>  
+      </div>
+      <section className='table'>
+        <div className='table-header'>
+          <h2>Tickets</h2>
+          
+          <input type='text' placeholder='Search' />
+        </div>
+
+        <div className='data'>
+          <div className='item-wrapper'>
             <div className='list-item'>
-                <p>title</p>    
+              <p>Title</p>
             </div>
 
+            <div className='list-item'>Type</div>
+
+            <div className='list-item'>Status</div>
+
             <div className='list-item'>
-                <p>Description</p>
+              <p>Action</p>
             </div>
-            
-            <div className='list-item'>
-                <ul>
-                    <li>Type</li>
-                    <li>Status</li>
-                </ul>
-            </div>
-            
-            <div className='list-item'>
-                <p>Date</p>    
-            </div>
-            
-            </div>  
-                {issues}
-            </div>
-        </section>  
+          </div>
+          {ticketList}
+        </div>
+      </section>
     </main>
-    
-  )
+  );
 };
 
 export default ProjectDetail;

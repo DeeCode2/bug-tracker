@@ -1,111 +1,330 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 //COLORS
-$COLOR1: #344e41;
-$COLOR2: #3a5a40;
-$COLOR3: #588157;
-$COLOR4: #a3b18a;
-$COLOR5: #dad7cd;
-$COLOR6: #fffefa;
+$COLOR1: #212529;
+$COLOR2: #343a40;
+$COLOR3: #495057;
+$COLOR4: #9099a2;
+$COLOR5: #adb5bd;
+$COLOR6: #f8f9fa;
+
+@mixin gen-styles {
+  border-radius: 0.5em;
+  background-color: whitesmoke;
+  padding: 0.5em;
+  box-shadow: 5px 5px 5px 1px rgba(189, 188, 188, 0.1);
+  //border: solid 1px $COLOR5;
+}
+
+@mixin gen-btn {
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 0.5em;
+}
 
 nav {
-    background-color: $COLOR1;
-    position: fixed;
-    width: 100%;
-    padding: 1em;
+  background-color: $COLOR1;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  //justify-content: space-between;
+  visibility: hidden;
+  //border: solid red;
 
-    ul {
-        display: flex;
-        align-items: center;    
-        list-style-type: none;
+  @media only screen and (min-width: 900px) {
+    width: 15vw;
+    visibility: visible;
+  }
 
-        a, li {
-            color: $COLOR6;
-            padding: .5em;
-        }
+  ul {
+    // display: flex;
+    // align-items: center;
+    list-style-type: none;
+
+    a {
+      border-radius: 0.3em;
+      width: 100%;
+      padding: 1em;
+      //margin: 1em 0;
+      text-decoration: none;
+      color: $COLOR6;
+      //text-align: center;
+
+      &:hover {
+        background-color: $COLOR4;
+      }
     }
-    
+
+    li {
+      width: 100%;
+      //border: solid red;
+      display: flex;
+
+      margin-bottom: 0.5em;
+    }
+  }
+
+  button {
+    margin-top: auto;
+  }
 }
 
 body {
+  background-color: rgb(235, 235, 235);
+  font-family: "Roboto";
+
+  .primary {
+    @include gen-btn;
+    background-color: $COLOR3;
+    color: $COLOR6;
+  }
+
+  .secondary {
+    @include gen-btn;
     background-color: $COLOR6;
+    color: $COLOR1;
+  }
 
-    main {
-        height: 100vh;
-        padding: 5em 1em;
+  .warning {
+    @include gen-btn;
+    background-color: $COLOR3;
+    color: $COLOR6;
+  }
 
-        h1 {
-            margin: .5em 0;
-        }
+  .action {
+    @include gen-btn;
+    padding: 0.5em 1em;
+    border: solid 1px $COLOR5;
+    color: $COLOR1;
 
-        .data {
-            //padding: 1em;
-            display: grid;
-            grid-auto-rows: 1fr;
-
-            .item-wrapper {
-                
-                display: grid;
-                grid-template-columns: 1fr;
-                padding: .5em;
-                //background-color: $COLOR1;
-                border: solid .5px $COLOR4;
-
-                @media only screen and (min-width: 800px) {
-                    grid-template-columns: 1fr 1fr 1fr auto;
-                }
-
-                .list-item {
-                    display: flex;
-                    align-items: center;
-                    //justify-content: center;
-                    padding: .3em;
-                    
-                }
-
-                // &:nth-child(2n) {
-                //     background-color: $COLOR2;
-                // }
-
-                &:first-child {
-                    @media only screen and (max-width: 800px) {
-                        display: none;
-                    }
-                }
-            }
-            
-        }
-
-        form {
-            //border: solid red;
-            max-width: 500px;
-            margin: auto;
-
-            .input-group {
-                //border: solid red;
-                display: flex;
-                flex-direction: column;
-                padding: .5em 0;
-                
-                label {
-                    padding: .3em 0;
-                }
-
-                input, select {
-                    padding: 1em
-                }
-            }
-
-            button {
-                padding: 1em;
-                margin-top: 1.5em;
-                cursor: pointer;
-                width: 100%;
-            }
-        }
+    &:hover {
+      background-color: $COLOR5;
     }
+  }
+
+  button {
+    padding: 1em;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+
+  .new-item {
+    //border: solid red;
+    padding: 2em 0;
+  }
+
+  input {
+    border: solid 1px $COLOR5;
+  }
+
+  main {
+    min-height: 100vh;
+    //margin-left: 8em;
+    padding: 1.5em;
+    //border: solid red;
+
+    @media only screen and (min-width: 900px) {
+      margin-left: 15vw;
+    }
+
+    h1 {
+      margin: 0.5em 0;
+    }
+
+    .tag {
+      border: solid 1px $COLOR4;
+      width: max-content;
+      padding: .3em .5em;
+      border-radius: 2em;
+      //background-color: $COLOR4;
+    }
+
+    #stats {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-auto-rows: auto;
+      gap: 1em;
+      margin-bottom: 1em;
+      overflow-x: scroll;
+      padding-bottom: 1em;
+      
+
+      .stat {
+        @include gen-styles;
+        position: relative;
+
+        @media only screen and (min-width: 900px) {
+          width: auto;
+          //aspect-ratio: 1/.25;
+        }
+
+        a {
+          margin-left: auto;
+          //border: solid red;
+          position: absolute;
+          right: 0;
+          top: 0;
+          margin: 1em;
+        }
+      }
+
+      @media only screen and (min-width: 900px) {
+        overflow: hidden;
+        padding-bottom: 0;
+      }
+
+      p {
+        padding: 0.5em 0;
+        margin-bottom: 1em;
+      }
+    }
+
+    .table {
+      @include gen-styles;
+      padding: 1.5em;
+
+      .table-header {
+        border-bottom: solid 1px $COLOR5;
+        padding-bottom: 1.5em;
+
+        display: flex;
+        flex-direction: column;
+        //align-items: center;
+
+        input {
+          margin-left: auto;
+          padding: 1em;
+          border-radius: 0.5em;
+          width: 100%;
+        }
+
+        @media only screen and (min-width: 900px) {
+          flex-direction: row;
+          align-items: center;
+          input {
+            width: auto;
+          }
+        }
+      }
+
+      .data {
+        padding: 1.5em 0;
+
+        .item-wrapper {
+          border-bottom: solid 1px $COLOR5;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          padding: 1.5em 0;
+
+          .list-item:nth-child(2),
+          .list-item:nth-child(3) {
+            display: none;
+          }
+
+          
+
+          &:first-child {
+            color: $COLOR3;
+            font-weight: bold;
+          }
+
+          .list-item {
+            display: flex;
+            align-items: center;
+            .action:last-child {
+              margin-left: 1em;
+              //border: solid red;
+            }
+          }
+          
+
+          @media only screen and (min-width: 900px) {
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+
+            .list-item:nth-child(2),
+            .list-item:nth-child(3) {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+  form {
+    //border: solid red;
+    max-width: 500px;
+    margin: auto;
+    background-color: whitesmoke;
+    padding: 1.5em;
+    border-radius: 0.5em;
+
+    h1 {
+        text-align: center;
+    }
+
+    .input-group {
+      margin: 1.5em 0;
+
+      input,
+      select {
+        border: solid 1px $COLOR5;
+        padding: 1em;
+        border-radius: 0.5em;
+        width: 100%;
+        margin-top: 1em;
+      }
+    }
+
+    button {
+      margin-top: 1.5em;
+      width: 100%;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 1.5em ;
+         a {
+            color: #212529;
+         }
+    }
+
+    @media only screen and (max-width: 900px) {
+        height: 93vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+  }
+
+  // .detail-section {
+  //   // @include gen-styles;
+  //   // padding: 1.5em;
+
+  //   // p {
+  //   //   border-bottom: solid 1px $COLOR5;
+  //   //   padding: 1em 0;
+
+  //   //   span {
+  //   //     font-weight: bold;
+  //   //     color: $COLOR2;
+  //   //   }
+  //   // }
+
+  //   @media only screen and (min-width: 900px) {
+  //     max-width: 50%;
+  //   }
+  // }
 }
+
+.register {
+    margin: 0;
+}
+

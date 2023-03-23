@@ -42,28 +42,52 @@ const Dashboard = () => {
                     </div>
 
                     <div className='list-item'>
-                        <p>{project.description}</p>    
+                        <p className='tag'>{project.status}</p>    
                     </div>
                     
                     <div className='list-item'>
                         <p>{project.issues.length}</p>    
                     </div>
                     <div className='list-item'>
-                        <Link to={`${project.id}`}>Detail</Link>
-                        <a href='#'>Edit</a>     
+                        <Link className='action' to={`${project.id}`}>Detail</Link>
+                        <a className='action' href='#'>Edit</a>
+                             
                     </div>
                       
                     
                 </div>
             
         )
-    })
+    });
+
+    //reverse array to get most recent one first
+    let reversedProjects = cards;
+    let reversedCards = [...reversedProjects].reverse();
 
     return (
         <main>
-            <h1>This is your dashboard</h1>
-            <section>
-                <Link to='/newproject'>Add a new project</Link>
+            <section id='stats'>
+                <div className='stat'>
+                    <h3>Total tickets</h3>
+                </div>
+
+                <div className='stat'>
+                    <h3>Total projects</h3>
+                </div>
+
+            </section>
+
+            <div className='new-item'>
+                <Link className='primary' to='/newproject'>Add a new project</Link>     
+            </div>
+
+            <section id='projects' className='table'>
+                <div className='table-header'>
+                    <h2>Projects</h2>
+                    
+                    <input type='text' placeholder='Search'/>   
+                </div>
+                
                 <div className='data'>
 
                 <div className='item-wrapper'>
@@ -72,7 +96,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className='list-item'>
-                        <p>Description</p>    
+                        <p>Status</p>    
                     </div>
                     
                     <div className='list-item'>
@@ -84,7 +108,7 @@ const Dashboard = () => {
                       
                     
                 </div>
-                    {cards}    
+                    {reversedCards}    
                 </div>
             </section>    
         </main>

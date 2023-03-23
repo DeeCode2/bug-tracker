@@ -12,6 +12,7 @@ import NewProject from './components/NewProject';
 import ProtectedRoute from './config/ProtectedRoute';
 import ProjectDetail from './components/ProjectDetail';
 import NewTicket from './components/NewTicket';
+import TicketDetail from './components/TicketDetail';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/newproject' element={<ProtectedRoute><NewProject /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId' element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/newticket' element={<ProtectedRoute><NewTicket /></ProtectedRoute>} />
+        <Route path='/dashboard/:projectId/:ticketId' element={<ProtectedRoute><TicketDetail /></ProtectedRoute>} />
       </Routes>  
     </AuthContextProvider>
   )

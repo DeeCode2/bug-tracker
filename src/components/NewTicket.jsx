@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { auth, firestore } from '../config/Firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
@@ -13,6 +13,7 @@ const NewTicket = () => {
     const descRef = useRef();
     const typeRef = useRef();
     const statusRef = useRef();
+    const navigate = useNavigate();
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authObj) => {
@@ -59,6 +60,12 @@ const NewTicket = () => {
     });
   }, []);
 
+    function uniqueID() {
+      return Math.floor(Math.random() * Date.now())
+    }
+
+    const newId = uniqueID();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -68,6 +75,7 @@ const NewTicket = () => {
             type: typeRef.current.value,
             status: statusRef.current.value,
             date: new Date().toLocaleDateString(),
+            id: newId
         }];
 
         const updatedProject = {
@@ -89,6 +97,10 @@ const NewTicket = () => {
         } catch (err) {
             console.log(err);
         };
+
+        
+        
+        navigate(`/dashboard/${projectId}`);
     }
 
     return (
@@ -100,7 +112,7 @@ const NewTicket = () => {
                 </div>
 
                 <div className='input-group'>
-                    <label>description</label>
+                    <label>Description</label>
                     <input type='text' ref={descRef}/>
                 </div>
 
@@ -116,14 +128,15 @@ const NewTicket = () => {
                 <div className='input-group'>
                     <label>Ticket status</label>
                     <select ref={statusRef}>
-                        <option value='open'>Open</option>
-                        <option value='in-progress'>In Progress</option>
-                        <option value='resolved'>Resolved</option>
-                        <option value='closed'>Closed</option>
+                        <option value='Unassigned'>Unassigned</option>
+                        <option value='Open'>Open</option>
+                        <option value='In progress'>In Progress</option>
+                        <option value='Resolved'>Resolved</option>
+                        <option value='Closed'>Closed</option>
                     </select>
                 </div>
 
-                <button>Submit</button>
+                <button className='primary'>Submit</button>
             </form>
         </main>
     )

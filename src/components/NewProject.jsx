@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { auth, firestore } from '../config/Firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
@@ -7,7 +7,9 @@ const NewProject = () => {
     const [projects, setProjects] = useState([]);
     const [userId, setUserId] = useState('')
     const titleRef = useRef();
-    const descRef = useRef()
+    const descRef = useRef();
+    const statusRef = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const unsub = auth.onAuthStateChanged((authObj) => {
@@ -42,7 +44,9 @@ const NewProject = () => {
             title: titleRef.current.value,
             description: descRef.current.value,
             issues: [],
-            id: projects.length + 1
+            id: projects.length + 1,
+            date: new Date().toLocaleDateString(),
+            status: statusRef.current.value
         };
 
         try {
@@ -53,6 +57,8 @@ const NewProject = () => {
         } catch (err) {
             console.log(err);
         };
+
+        navigate(`/dashboard/${newEntry.id}`);
 
     };
 
@@ -72,7 +78,15 @@ const NewProject = () => {
                     <input type='text' ref={descRef} id='desc-input'></input>
                 </div>
 
-                <button type='submit'>Submit</button>
+                <div className='input-group'>
+                    <label for='status-input'>Project status</label>
+                    <select ref={statusRef} id='status-input'>
+                        <option value='active'>Active</option>
+                        <option value='complete'>Complete</option>
+                    </select>
+                </div>
+
+                <button className='primary' type='submit'>Submit</button>
             </form>
         </main>
     )
