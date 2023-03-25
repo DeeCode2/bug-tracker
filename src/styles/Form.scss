@@ -2,7 +2,7 @@
 
 form {
   //border: solid red;
-  max-width: 500px;
+  //max-width: 500px;
   margin: auto;
   background-color: whitesmoke;
   padding: 1.5em;
@@ -18,13 +18,14 @@ form {
     input,
     select {
       border: solid 1px App.$COLOR5;
-      padding: 1em;
+      padding: 1.5em;
       border-radius: 0.5em;
       width: 100%;
       margin-top: 1em;
     }
   }
 
+  
   button {
     margin-top: 1.5em;
     width: 100%;
@@ -44,8 +45,27 @@ form {
     flex-direction: column;
     justify-content: center;
   }
-}
 
+  .btn-group {
+    //border: solid red;
+    display: flex;
+
+    // button {
+    //   width: max-content;
+    // }
+
+    .primary {
+      max-width: 200px;
+    }
+
+    .warning {
+      margin-left: auto;
+      width: max-content;
+    }
+  }
+}
 .register {
-    margin: 0;
+  //min-width: 100%;
+  max-width: 700px;
+  margin: auto;
 }

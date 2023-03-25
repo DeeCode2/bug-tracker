@@ -9,6 +9,7 @@ const ProjectDetail = () => {
   const { projectId } = useParams();
   const [currentProject, setCurrentProject] = useState('');
   const [tickets, setTickets] = useState([]);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authObj) => {
@@ -56,28 +57,35 @@ const ProjectDetail = () => {
     });
   }, []);
 
-  const issues = tickets.map((ticket) => {
+  let issues = tickets.filter((ticket) => {
+    if (query === '') {
+      return ticket;
+    } else if (ticket.title.toLowerCase().includes(query.toLowerCase())) {
+      return ticket;
+    }
+  })
+  .map((ticket) => {
     return (
-      <div className='item-wrapper'>
+      <div className='item-wrapper' key={ticket.id}>
         <div className='list-item'>
           <p>{ticket.title}</p>
         </div>
 
         <div className='list-item'>
-          <p className='tag'>
-            {ticket.type}
-          </p>
+          <p className='tag'>{ticket.type}</p>
         </div>
 
         <div className='list-item'>
-          <p className='tag'>
-            {ticket.status}
-          </p>
+          <p className='tag'>{ticket.status}</p>
         </div>
 
-        <div className='list-item'> 
-          <Link className='action' to={`/dashboard/${projectId}/${ticket.id}`}>Detail</Link>
-          <a className='action' href='#'>Edit</a>
+        <div className='list-item'>
+          <Link className='action' to={`/dashboard/${projectId}/${ticket.id}`}>
+            Detail
+          </Link>
+          <Link className='action' to={`${ticket.id}/edit`}>
+            Edit
+          </Link>
         </div>
       </div>
     );
@@ -87,6 +95,7 @@ const ProjectDetail = () => {
   let reversedTickets = issues;
   let ticketList = [...reversedTickets].reverse();
 
+  //console.log(currentProject.date)
 
   return (
     <main>
@@ -95,47 +104,66 @@ const ProjectDetail = () => {
 
       <section id='stats'>
         <div className='stat'>
-          <h3>Project name:</h3>
-          <p>{currentProject.title}</p>
+          <p>
+            <span>Project name: </span>{currentProject.title}
+          </p>
 
-          <h3>description:</h3>
-          <p>{currentProject.description}</p>
+          <p>
+            <span>Description: </span>{currentProject.description}
+          </p>
 
-          <h3>Date created:</h3>
-          <p>{currentProject.date}</p>
+          <p>
+            <span>ID: </span>{currentProject.id}
+          </p>
 
-          <h3>Date updated:</h3>
-          <p>{currentProject.date}</p>
-          
-          <Link className='primary'>Edit</Link>
+          <p>
+            <span>Status: </span>{currentProject.status}
+          </p>
+
+          {/* <p>
+            <span>Created: </span>{currentProject.date}
+          </p>
+
+          <p>
+            <span>Updated: </span>{currentProject.updated}
+          </p> */}
+
+          <Link className='action' to={`/dashboard/${projectId}/edit`}>
+            Edit
+          </Link>
         </div>
 
         <div className='stat'>
-          <h3>Tickets</h3>
-          <p>Total: {tickets.length}</p>
+          {/* <p>
+            <span>Total tickets: {tickets.length}</span>
+          </p> */}
 
-          <p>Open tickets: {tickets.filter((ticket) => 
-            ticket.status === "Open"
-          ).length}</p>
+          <p>
+            <span>Open tickets: </span>
+            {tickets.filter((ticket) => ticket.status === 'Open').length}
+          </p>
 
-          <p>In progress: {tickets.filter((ticket) => 
-            ticket.status === "In progress"
-          ).length}</p>
+          <p>
+            <span>In progress tickets: </span>
+            {tickets.filter((ticket) => ticket.status === 'Open').length}
+          </p>
 
-          <p>Closed: {tickets.filter((ticket) => 
-            ticket.status === "Closed"
+          <p><span>Closed tickets: </span>{tickets.filter((ticket) => 
+            ticket.status === 'Closed'
           ).length}</p>
 
         </div>
       </section>
       <div className='new-item'>
-        <Link className='primary' to={'newticket'}>add a ticket</Link>  
+        <Link className='primary' to={'newticket'}>
+          add a ticket
+        </Link>
       </div>
       <section className='table'>
         <div className='table-header'>
           <h2>Tickets</h2>
-          
-          <input type='text' placeholder='Search' />
+
+          <input type='text' onChange={(e) => setQuery(e.target.value)} placeholder='Search' />
         </div>
 
         <div className='data'>

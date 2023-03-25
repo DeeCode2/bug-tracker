@@ -46,7 +46,8 @@ const NewProject = () => {
             description: descRef.current.value,
             issues: [],
             id: projects.length + 1,
-            date: new Date().toLocaleDateString(),
+            // date: new Date().toLocaleDateString(),
+            // updated: new Date().toLocaleDateString(),
             status: statusRef.current.value
         };
 

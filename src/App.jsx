@@ -13,6 +13,8 @@ import ProtectedRoute from './config/ProtectedRoute';
 import ProjectDetail from './components/ProjectDetail';
 import NewTicket from './components/NewTicket';
 import TicketDetail from './components/TicketDetail';
+import EditProject from './components/EditProject';
+import EditTicket from './components/EditTicket';
 
 function App() {
 
@@ -27,6 +29,8 @@ function App() {
         <Route path='/dashboard/:projectId' element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/newticket' element={<ProtectedRoute><NewTicket /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/:ticketId' element={<ProtectedRoute><TicketDetail /></ProtectedRoute>} />
+        <Route path='/dashboard/:projectId/edit' element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
+        <Route path='/dashboard/:projectId/:ticketId/edit' element={<ProtectedRoute><EditTicket /></ProtectedRoute>} />
       </Routes>  
     </AuthContextProvider>
   )

@@ -75,6 +75,7 @@ body {
     padding: 1em;
     border-radius: 0.5em;
     cursor: pointer;
+    border: none;
   }
 
   .new-item {
@@ -148,6 +149,11 @@ body {
       p {
         padding: 0.5em 0;
         margin-bottom: 1em;
+
+        span {
+          font-weight: bold;
+          color: $COLOR2
+        }
       }
     }
 

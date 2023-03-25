@@ -7,6 +7,7 @@ import '../styles/Dashboard.scss';
 const Dashboard = () => {
     //array of project data
     const [projects, setProjects] = useState([]);
+    const [query, setQuery] = useState('');
 
     //retrieve array of all projects in projects document
     useEffect(() => {
@@ -33,10 +34,17 @@ const Dashboard = () => {
         });
     }, []);
 
-    const cards = projects.map((project) => {
+    let cards = projects.filter((project) => {
+        if (query === "") {
+            return project;
+          } else if (project.title.toLowerCase().includes(query.toLowerCase())) {
+            return project;
+          }
+    })
+    .map((project) => {
         return (
             
-                <div className='item-wrapper'>
+                <div className='item-wrapper' key={project.id}>
                     <div className='list-item'>
                         <h4>{project.title}</h4>
                     </div>
@@ -50,8 +58,7 @@ const Dashboard = () => {
                     </div>
                     <div className='list-item'>
                         <Link className='action' to={`${project.id}`}>Detail</Link>
-                        <a className='action' href='#'>Edit</a>
-                             
+                        <Link className='action' to={`${project.id}/edit`}>Edit</Link>    
                     </div>
                       
                     
@@ -66,7 +73,7 @@ const Dashboard = () => {
 
     return (
         <main>
-            <section id='stats'>
+            {/* <section id='stats'>
                 <div className='stat'>
                     <h3>Total tickets</h3>
                 </div>
@@ -75,7 +82,7 @@ const Dashboard = () => {
                     <h3>Total projects</h3>
                 </div>
 
-            </section>
+            </section> */}
 
             <div className='new-item'>
                 <Link className='primary' to='/newproject'>Add a new project</Link>     
@@ -85,7 +92,7 @@ const Dashboard = () => {
                 <div className='table-header'>
                     <h2>Projects</h2>
                     
-                    <input type='text' placeholder='Search'/>   
+                    <input type='text' onChange={(e) => setQuery(e.target.value)} placeholder='Search'/>   
                 </div>
                 
                 <div className='data'>

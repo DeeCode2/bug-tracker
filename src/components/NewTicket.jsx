@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { auth, firestore } from '../config/Firebase';
-import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import '../styles/Form.scss';
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { auth, firestore } from "../config/Firebase";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import "../styles/Form.scss";
 
 const NewTicket = () => {
-    const [projects, setProjects] = useState([]);
-    const [userId, setUserId] = useState('');
-    const { projectId } = useParams();
-    const [currentProject, setCurrentProject] = useState('');
+  const [projects, setProjects] = useState([]);
+  const [userId, setUserId] = useState("");
+  const { projectId } = useParams();
+  const [currentProject, setCurrentProject] = useState("");
 
-    const titleRef = useRef();
-    const descRef = useRef();
-    const typeRef = useRef();
-    const statusRef = useRef();
-    const navigate = useNavigate();
+  const titleRef = useRef();
+  const descRef = useRef();
+  const typeRef = useRef();
+  const statusRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authObj) => {
@@ -24,7 +24,7 @@ const NewTicket = () => {
         const uid = auth.currentUser.uid;
         setUserId(uid);
 
-        getDoc(doc(firestore, uid, 'projects'))
+        getDoc(doc(firestore, uid, "projects"))
           .then((docSnap) => {
             if (docSnap.exists()) {
               //binary search of projects
@@ -49,98 +49,109 @@ const NewTicket = () => {
               searchProjects(Number(projectId), docSnap.data().projects);
               setProjects(docSnap.data().projects);
             } else {
-              console.log('No such document!');
+              console.log("No such document!");
             }
           })
           .catch((err) => {
-            console.log('Error getting document: ', err);
+            console.log("Error getting document: ", err);
           });
       } else {
-        console.log('User is not logged in');
+        console.log("User is not logged in");
       }
     });
   }, []);
 
-    function uniqueID() {
-      return Math.floor(Math.random() * Date.now())
+  function uniqueID() {
+    return Math.floor(Math.random() * Date.now());
+  }
+
+  const newId = uniqueID();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const ticket = [
+      {
+        title: titleRef.current.value,
+        description: descRef.current.value,
+        type: typeRef.current.value,
+        status: statusRef.current.value,
+        // date: new Date().toLocaleDateString(),
+        //updated: new Date().toLocaleDateString(),
+        id: newId,
+      },
+    ];
+
+    const updatedProject = {
+      title: currentProject.title,
+      description: currentProject.description,
+      id: Number(projectId),
+      issues: currentProject.issues.concat(ticket),
+      status: currentProject.status
+    };
+
+    //get current position of project and replace it with the updated version
+    const newProjectList = projects;
+    //cosnt projectIndex =
+    newProjectList[
+      newProjectList.indexOf(
+        projects.filter((project) => project.id === Number(projectId))[0]
+      )
+    ] = updatedProject;
+
+    try {
+      const ref = doc(firestore, userId, "projects");
+      updateDoc(ref, {
+        projects: newProjectList,
+      });
+    } catch (err) {
+      console.log(err);
     }
 
-    const newId = uniqueID();
+    setTimeout(() => {
+      navigate(`/dashboard/${Number(projectId)}`);
+    }, 5000);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    setTimeout();
+  };
 
-        const ticket = [{
-            title: titleRef.current.value,
-            description: descRef.current.value,
-            type: typeRef.current.value,
-            status: statusRef.current.value,
-            date: new Date().toLocaleDateString(),
-            id: newId
-        }];
+  return (
+    <main>
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
+          <label>Title</label>
+          <input type="text" ref={titleRef} />
+        </div>
 
-        const updatedProject = {
-            title: currentProject.title,
-            description: currentProject.description,
-            id: Number(projectId),
-            issues: currentProject.issues.concat(ticket)
-        }
+        <div className="input-group">
+          <label>Description</label>
+          <input type="text" ref={descRef} />
+        </div>
 
-        //get current position of project and replace it with the updated version
-        const newProjectList = projects
-        newProjectList[Number(projectId) - 1] = updatedProject
+        <div className="input-group">
+          <label>Ticket type</label>
+          <select ref={typeRef}>
+            <option value="bug">Bug</option>
+            <option value="ui-ux">UI/UX</option>
+            <option value="feature">Feature request</option>
+          </select>
+        </div>
 
-        try {
-            const ref = doc(firestore, userId, 'projects');
-            updateDoc(ref, {
-                projects: newProjectList,
-            });
-        } catch (err) {
-            console.log(err);
-        };
+        <div className="input-group">
+          <label>Ticket status</label>
+          <select ref={statusRef}>
+            <option value="Unassigned">Unassigned</option>
+            <option value="Open">Open</option>
+            <option value="In progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
 
-        
-        
-        navigate(`/dashboard/${projectId}`);
-    }
-
-    return (
-        <main>
-            <form onSubmit={handleSubmit}>
-                <div className='input-group'>
-                    <label>Title</label>
-                    <input type='text' ref={titleRef}/>
-                </div>
-
-                <div className='input-group'>
-                    <label>Description</label>
-                    <input type='text' ref={descRef}/>
-                </div>
-
-                <div className='input-group'>
-                    <label>Ticket type</label>
-                    <select ref={typeRef}>
-                        <option value='bug'>Bug</option>
-                        <option value='ui-ux'>UI/UX</option>
-                        <option value='feature'>Feature request</option>
-                    </select>
-                </div>
-
-                <div className='input-group'>
-                    <label>Ticket status</label>
-                    <select ref={statusRef}>
-                        <option value='Unassigned'>Unassigned</option>
-                        <option value='Open'>Open</option>
-                        <option value='In progress'>In Progress</option>
-                        <option value='Resolved'>Resolved</option>
-                        <option value='Closed'>Closed</option>
-                    </select>
-                </div>
-
-                <button className='primary'>Submit</button>
-            </form>
-        </main>
-    )
+        <button className="primary">Submit</button>
+      </form>
+    </main>
+  );
 };
 
 export default NewTicket;
