@@ -1,8 +1,6 @@
 @use "./App.scss";
 
 form {
-  //border: solid red;
-  //max-width: 500px;
   margin: auto;
   background-color: whitesmoke;
   padding: 1.5em;
@@ -15,6 +13,12 @@ form {
   .input-group {
     margin: 1.5em 0;
 
+    .required-msg {
+      display: none;
+      text-align: left;
+      color: red;
+    }
+
     input,
     select {
       border: solid 1px App.$COLOR5;
@@ -25,7 +29,6 @@ form {
     }
   }
 
-  
   button {
     margin-top: 1.5em;
     width: 100%;
@@ -47,12 +50,7 @@ form {
   }
 
   .btn-group {
-    //border: solid red;
     display: flex;
-
-    // button {
-    //   width: max-content;
-    // }
 
     .primary {
       max-width: 200px;
@@ -65,7 +63,6 @@ form {
   }
 }
 .register {
-  //min-width: 100%;
   max-width: 700px;
   margin: auto;
 }

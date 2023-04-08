@@ -148,32 +148,36 @@ const EditTicket = () => {
                 <div className='input-group'>
                     <label for='title-input'>Title</label>
                     <br/>
-                    <input type='text' ref={titleRef} defaultValue={title} id='title-input'></input>
+                    <input type='text' ref={titleRef} defaultValue={title} id='title-input' required />
+                    <p className='required-msg'>Title field must not be empty</p>
                 </div>
 
                 <div className='input-group'>
                     <label for='desc-input'>Description</label>
                     <br/>
-                    <input type='text' ref={descRef} defaultValue={description} id='desc-input'></input>
+                    <input type='text' ref={descRef} defaultValue={description} id='desc-input' required />
+                    <p className='required-msg'>Description field must not be empty</p>
                 </div>
 
                 <div className='input-group'>
                     <label>Ticket type</label>
                     <select ref={typeRef} value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value='bug'>Bug</option>
-                        <option value='ui-ux'>UI/UX</option>
-                        <option value='feature'>Feature request</option>
+                        <option value="Bug">Bug</option>
+                        <option value="Task">Task</option>
+                        <option value="New Feature">New Feature</option>
+                        <option value="Improvement">Improvement</option>
+                        <option value="Test">Test</option>
                     </select>
                 </div>
 
                 <div className='input-group'>
                     <label>Ticket status</label>
                     <select ref={statusRef} value={status} onChange={(e) => setStatus(e.target.value)}>
-                        <option value='Unassigned'>Unassigned</option>
                         <option value='Open'>Open</option>
                         <option value='In progress'>In Progress</option>
                         <option value='Resolved'>Resolved</option>
                         <option value='Closed'>Closed</option>
+                        <option value='Unassigned'>Unassigned</option>
                     </select>
                 </div>
 

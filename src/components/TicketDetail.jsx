@@ -157,15 +157,15 @@ const TicketDetail = () => {
           <p><span>Title: </span>{currentTicket.title}</p>
           <p><span>Description: </span>{currentTicket.description}</p>
           <p><span>ID: </span>{currentTicket.id}</p>
-          <p><span>Date created: </span>{currentTicket.date}</p>
-          <p><span>Date updated: </span>{currentTicket.date}</p>
+          {/* <p><span>Date created: </span>{currentTicket.date}</p>
+          <p><span>Date updated: </span>{currentTicket.date}</p> */}
           <p><span>Status: </span>{currentTicket.status}</p>
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <h3>Comments</h3>
-      </section>
+      </section> */}
     </main>
   );
 };

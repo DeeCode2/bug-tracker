@@ -120,31 +120,35 @@ const NewTicket = () => {
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <label>Title</label>
-          <input type="text" ref={titleRef} />
+          <input type="text" ref={titleRef} required/>
+          <p className='required-msg'>Title field must not be empty</p>
         </div>
 
         <div className="input-group">
           <label>Description</label>
-          <input type="text" ref={descRef} />
+          <input type="text" ref={descRef} required/>
+          <p className='required-msg'>Description field must not be empty</p>
         </div>
 
         <div className="input-group">
           <label>Ticket type</label>
           <select ref={typeRef}>
-            <option value="bug">Bug</option>
-            <option value="ui-ux">UI/UX</option>
-            <option value="feature">Feature request</option>
+            <option value="Bug">Bug</option>
+            <option value="Task">Task</option>
+            <option value="New Feature">New Feature</option>
+            <option value="Improvement">Improvement</option>
+            <option value="Test">Test</option>
           </select>
         </div>
 
         <div className="input-group">
           <label>Ticket status</label>
           <select ref={statusRef}>
-            <option value="Unassigned">Unassigned</option>
             <option value="Open">Open</option>
             <option value="In progress">In Progress</option>
             <option value="Resolved">Resolved</option>
             <option value="Closed">Closed</option>
+            <option value="Unassigned">Unassigned</option>
           </select>
         </div>
 
