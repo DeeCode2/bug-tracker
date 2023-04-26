@@ -93,8 +93,8 @@ const EditTicket = () => {
         const updatedProject = currentProject;
         updatedProject.issues = ticketArr;
 
-         const updatedProjectList = projects;
-         updatedProjectList[Number(projectId) - 1] = updatedProject;
+        const updatedProjectList = projects;
+        updatedProjectList[Number(projectId) - 1] = updatedProject;
 
         try {
             const ref = doc(firestore, userId, 'projects');
@@ -106,9 +106,6 @@ const EditTicket = () => {
         };
 
         navigate(`/dashboard/${Number(projectId)}`);
-
-        //console.log()
-
     };
 
     const deleteTicket = async (e) => {
@@ -127,8 +124,6 @@ const EditTicket = () => {
         const updatedProjectList = projects;
         updatedProjectList[updatedProjectList.indexOf(projects.filter((project) => project.id === Number(projectId))[0])] = updatedProject;
 
-
-        //console.log(updatedProjectList)
         try {
             const ref = doc(firestore, userId, 'projects');
             updateDoc(ref, {
