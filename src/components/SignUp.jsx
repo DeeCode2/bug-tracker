@@ -25,6 +25,10 @@ const SignUp = () => {
         projects: [],
       });
 
+      const userRef = await setDoc(doc(db, userUid, 'account'), {
+        account: {},
+      });
+
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);

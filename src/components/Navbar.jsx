@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { UserAuth } from '../config/AuthContext.jsx';
+import { auth, firestore } from '../config/Firebase';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import '../styles/Navbar.scss';
 
 const Navbar = () => {
@@ -7,6 +10,22 @@ const Navbar = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged((authObj) => {
+      unsub();
+
+      if (authObj) {
+        const uid = auth.currentUser.uid;
+        setUserId(uid);
+        setUsername(auth.currentUser.displayName)
+      } else {
+        console.log('User is not logged in');
+      }
+    });
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -27,6 +46,7 @@ const Navbar = () => {
     document.getElementById('nav').classList.toggle('hide');
   }
 
+
   if (location.pathname === '/' || location.pathname === '/signup') {
     return null;
   } else {
@@ -34,6 +54,7 @@ const Navbar = () => {
       <div id='nav-wrapper'>
         <nav id='nav' className='hide'>
           <h1>Doc <br/>Tracker</h1>
+          <h2>Hello {username}</h2>
           <ul>
             <li>
               <NavLink
@@ -46,6 +67,20 @@ const Navbar = () => {
                 }}
               >
                 Dashboard
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to='/account'
+                style={({ isActive }) => {
+                  return {
+                    backgroundColor: isActive ? '#9099a2' : '',
+                    color: isActive ? '#212529' : '',
+                  };
+                }}
+              >
+                Account
               </NavLink>
             </li>
             {/* <li>

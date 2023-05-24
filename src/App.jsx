@@ -15,6 +15,7 @@ import NewTicket from './components/NewTicket';
 import TicketDetail from './components/TicketDetail';
 import EditProject from './components/EditProject';
 import EditTicket from './components/EditTicket';
+import Account from './components/Account';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path='/newproject' element={<ProtectedRoute><NewProject /></ProtectedRoute>} />
+        <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId' element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/newticket' element={<ProtectedRoute><NewTicket /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/:ticketId' element={<ProtectedRoute><TicketDetail /></ProtectedRoute>} />
