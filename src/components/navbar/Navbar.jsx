@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
-import { UserAuth } from '../config/AuthContext.jsx';
-import { auth, firestore } from '../config/Firebase';
+import { UserAuth } from '../../config/AuthContext.jsx';
+import { auth, firestore } from '../../config/Firebase.jsx';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import '../styles/Navbar.scss';
+import './Navbar.scss';
 
 const Navbar = () => {
   //get user auth and logout functions from config
@@ -36,6 +36,8 @@ const Navbar = () => {
     }
   };
 
+  //console.log(username)
+
   //toggle menu
   function toggleMenu() {
     // if (document.getElementById('nav').classList.contains('hide')) {
@@ -53,16 +55,17 @@ const Navbar = () => {
     return (
       <div id='nav-wrapper'>
         <nav id='nav' className='hide'>
-          <h1>Doc <br/>Tracker</h1>
+          {/* <h1>Doc <br/>Tracker</h1> */}
           <h2>Hello {username}</h2>
           <ul>
             <li>
               <NavLink
                 to='/dashboard'
+                className='nav-link'
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? '#9099a2' : '',
-                    color: isActive ? '#212529' : '',
+                    color: isActive ? '#212529' : '#ffffff',
                   };
                 }}
               >
@@ -73,30 +76,18 @@ const Navbar = () => {
             <li>
               <NavLink
                 to='/account'
+                className='nav-link'
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? '#9099a2' : '',
-                    color: isActive ? '#212529' : '',
+                    color: isActive ? '#212529' : '#ffffff',
                   };
                 }}
               >
                 Account
               </NavLink>
             </li>
-            {/* <li>
-            <NavLink
-                to='/account'
-                style={({ isActive }) => {
-                  return {
-                    backgroundColor: isActive ? '#9099a2' : 'transparent',
-                    color: isActive ? '#212529' : '',
-                  };
-                }}
-              >
-              
-                Account
-              </NavLink>
-            </li> */}
+            
           </ul>
           <button className='secondary logout' type='button' onClick={handleLogout}>
             Logout

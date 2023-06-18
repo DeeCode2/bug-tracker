@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { UserAuth } from "../config/AuthContext.jsx";
+import { UserAuth } from "../../config/AuthContext.jsx";
 import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
-import { auth, firestore } from "../config/Firebase";
+import { auth, firestore } from "../../config/Firebase.jsx";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
-//import '../styles/Form.scss';
+import './Account.scss';
 
 const Account = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +11,6 @@ const Account = () => {
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  //const [displayName, setDisplayName] = useState('');
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((authObj) => {
@@ -71,10 +70,11 @@ const Account = () => {
   };
 
   return (
-    <>
-      <h1>Account page for user</h1>
+      <main>
+      <h1>Your Account Details</h1>
+      <div id="account-forms">
       <form onSubmit={changeUsername}>
-
+        <h3>Change your username</h3>
         <div className='input-group'>
         <label for='username'>Username</label>
         <br />
@@ -89,7 +89,7 @@ const Account = () => {
       </form>
 
       <form onSubmit={changeEmail}>
-
+        <h3>Change your email</h3>
         <div className='input-group'>
         <label for='email'>E-mail</label>
         <br />
@@ -104,7 +104,7 @@ const Account = () => {
       </form>
 
       <form onSubmit={changePassword}>
-
+        <h3>Change your password</h3>
         <div className='input-group'>
         <label for='password'>Password</label>
         <br />
@@ -117,7 +117,8 @@ const Account = () => {
         
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
+    </main>
   );
 };
 

@@ -14,6 +14,8 @@ $COLOR6: #f8f9fa;
 $red: #f94144;
 $green: #90be6d;
 $blue: #86bbd8;
+$yellow: #f5ee98;
+$purple: #c891dc;
 
 @mixin gen-styles {
   border-radius: 0.5em;
@@ -105,8 +107,33 @@ body {
 
     .tag {
       width: max-content;
-      padding: .3em .5em;
+      padding: .5em .7em;
       border-radius: 2em;
+      //background-color: $blue;
+
+    } 
+
+    [data-tag="Unassigned"] {
+      background-color: $COLOR5;
+    }
+
+    [data-tag="Active"], [data-tag="Open"], [data-tag="Improvement"] {
+      background-color: $green;
+    }
+
+    [data-tag="Bug"] {
+      background-color: $yellow;
+    }
+
+    [data-tag="Test"], [data-tag="Resolved"] {
+      background-color: $purple;
+    }
+
+    [data-tag="Closed"], [data-tag="Complete"] {
+      background-color: $red;
+    }
+
+    [data-tag="In progress"], [data-tag="New feature"] {
       background-color: $blue;
     }
 
@@ -125,7 +152,7 @@ body {
         position: relative;
 
         @media only screen and (min-width: 900px) {
-          width: auto;
+          width: sauto;
           //aspect-ratio: 1/.25;
         }
 
@@ -239,4 +266,3 @@ body {
     }
   }
 }
-

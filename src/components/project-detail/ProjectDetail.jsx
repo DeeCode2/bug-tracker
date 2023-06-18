@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { auth, firestore } from '../config/Firebase';
+import { auth, firestore } from '../../config/Firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 const ProjectDetail = () => {
@@ -72,11 +72,11 @@ const ProjectDetail = () => {
         </div>
 
         <div className='list-item'>
-          <p className='tag'>{ticket.type}</p>
+          <p className='tag' data-tag={ticket.type}>{ticket.type}</p>
         </div>
 
         <div className='list-item'>
-          <p className='tag'>{ticket.status}</p>
+          <p className='tag' data-tag={ticket.status}>{ticket.status}</p>
         </div>
 
         <div className='list-item'>
@@ -156,7 +156,7 @@ const ProjectDetail = () => {
       </section>
       <div className='new-item'>
         <Link className='primary' to={'newticket'}>
-          add a ticket
+          Add a ticket
         </Link>
       </div>
       <section className='table'>

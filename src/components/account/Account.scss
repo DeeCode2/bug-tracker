@@ -1,0 +1,29 @@
+@use '../../styles/App.scss';
+
+
+h1, h3 {
+    text-align: center;
+}
+
+#account-forms {
+    //border: solid #ff0000;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    
+    form {
+        //border: solid green;
+        height: max-content;
+        width: 100%;
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            @include App.gen-btn;
+            background-color: App.$COLOR3;
+            color: App.$COLOR6;
+        }
+    }
+}
