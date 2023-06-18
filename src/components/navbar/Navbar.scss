@@ -1,4 +1,4 @@
-@use './App.scss';
+@use '../../styles/App.scss';
 
 nav {
   //border: solid red;
@@ -10,21 +10,28 @@ nav {
 
   display: flex;
   align-items: center;
-  //justify-content: space-between;
+  justify-content: space-between;
   padding: 0 1.5em;
 
-  h1 {
+  h1, h2 {
     margin-right: auto;
     color: App.$COLOR6;
   }
+  
 
   ul {
     list-style-type: none;
+    display: flex;
 
     a {
+      margin-left: .75em;
       padding: .8em;
       border-radius: .5em;
       text-decoration: none;
+
+      &:hover, &:focus {
+        border: solid 2px App.$COLOR6;
+      }
     }
   }
 

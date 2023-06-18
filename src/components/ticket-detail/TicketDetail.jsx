@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { auth, firestore } from '../config/Firebase';
+import { auth, firestore } from '../../config/Firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import '../styles/Detail.scss';
+import '../../styles/Detail.scss';
 
 const TicketDetail = () => {
   const [projects, setProjects] = useState([]);

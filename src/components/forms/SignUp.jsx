@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserAuth } from '../config/AuthContext';
-import { auth } from '../config/Firebase.jsx';
+import { UserAuth } from '../../config/AuthContext';
+import { auth } from '../../config/Firebase.jsx';
 import { doc, setDoc, getFirestore } from 'firebase/firestore';
-import '../styles/Form.scss';
+import '../../styles/Form.scss';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -23,6 +23,10 @@ const SignUp = () => {
 
       const docRef = await setDoc(doc(db, userUid, 'projects'), {
         projects: [],
+      });
+
+      const userRef = await setDoc(doc(db, userUid, 'account'), {
+        account: {},
       });
 
       navigate('/dashboard');

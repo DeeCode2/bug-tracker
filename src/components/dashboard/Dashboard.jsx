@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth, firestore } from '../config/Firebase';
+import { auth, firestore } from '../../config/Firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import '../styles/Dashboard.scss';
+import './Dashboard.scss';
 
 const Dashboard = () => {
-    //array of project data
+    
     const [projects, setProjects] = useState([]);
     const [query, setQuery] = useState('');
 
@@ -34,6 +34,7 @@ const Dashboard = () => {
         });
     }, []);
 
+    //search function
     let cards = projects.filter((project) => {
         if (query === "") {
             return project;
@@ -50,7 +51,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className='list-item'>
-                        <p className='tag'>{project.status}</p>    
+                        <p className="tag" data-tag={project.status}>{project.status}</p>    
                     </div>
                     
                     <div className='list-item'>
@@ -66,6 +67,8 @@ const Dashboard = () => {
             
         )
     });
+
+
 
     //reverse array to get most recent one first
     let reversedProjects = cards;

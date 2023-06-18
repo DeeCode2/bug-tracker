@@ -4,17 +4,18 @@ import { AuthContextProvider } from './config/AuthContext';
 import './styles/App.scss'
 
 //COMPONENTS
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import NewProject from './components/NewProject';
+import SignUp from './components/forms/SignUp';
+import SignIn from './components/forms/SignIn';
+import Navbar from './components/navbar/Navbar';
+import Dashboard from './components/dashboard/Dashboard';
+import NewProject from './components/new-project/NewProject';
 import ProtectedRoute from './config/ProtectedRoute';
-import ProjectDetail from './components/ProjectDetail';
-import NewTicket from './components/NewTicket';
-import TicketDetail from './components/TicketDetail';
-import EditProject from './components/EditProject';
-import EditTicket from './components/EditTicket';
+import ProjectDetail from './components/project-detail/ProjectDetail';
+import NewTicket from './components/new-ticket/NewTicket';
+import TicketDetail from './components/ticket-detail/TicketDetail';
+import EditProject from './components/edit-project/EditProject';
+import EditTicket from './components/edit-ticket/EditTicket';
+import Account from './components/account/Account';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path='/newproject' element={<ProtectedRoute><NewProject /></ProtectedRoute>} />
+        <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId' element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/newticket' element={<ProtectedRoute><NewTicket /></ProtectedRoute>} />
         <Route path='/dashboard/:projectId/:ticketId' element={<ProtectedRoute><TicketDetail /></ProtectedRoute>} />
